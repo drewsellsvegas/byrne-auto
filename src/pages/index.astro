@@ -11,7 +11,7 @@ import { services, serviceBySlug } from '../data/services';
 import { href, tel } from '../lib/paths';
 import { faqNode } from '../lib/schema';
 
-const featured = ['transmission-rebuilding', 'whipple-supercharger-installs', 'custom-engine-builds', 'performance-mods-tuning'].map(serviceBySlug);
+const featured = ['whipple-supercharger-installs', 'custom-engine-builds', 'performance-mods-tuning', 'ford-5-0-tuning'].map(serviceBySlug);
 const strip = [
   ['hemi-throttle-body', 'Red Hemi throttle body on an engine build at Byrne Auto & Performance, Las Vegas'],
   ['corvette-red-engine', 'Red Chevrolet Corvette with a supercharged V8 under the hood, tuned in Las Vegas'],
@@ -71,7 +71,7 @@ const faq = [
       <div class="max-w-3xl" data-reveal>
         <p class="eyebrow">What we do best</p>
         <h2 class="mt-4">Serious work for serious builds</h2>
-        <p class="lead mt-5">Transmissions, superchargers, engine builds and complete power packages. This is the work that sets Byrne apart.</p>
+        <p class="lead mt-5">Superchargers, engine builds, tuning and complete power packages for the people who want more from their vehicle.</p>
       </div>
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {featured.map((s, i) => <ServiceCard s={s} delay={i * 80} />)}
