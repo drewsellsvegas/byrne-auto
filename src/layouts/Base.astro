@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StickyBar from '../components/StickyBar.astro';
+import { site } from '../data/site';
+import { href, absUrl, isPreview } from '../lib/paths';
+import { graph, localBusiness, webSite, breadcrumbs as crumbs, type Node } from '../lib/schema';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogImage?: string;
+  schema?: (Node | undefined)[];
+  trail?: { name: string; path: string }[];
+  smsMessage?: string;
+  noindex?: boolean;
+}
+const { title, description, path, ogImage, schema = [], trail, smsMessage, noindex } = Astro.props;
+const canonical = absUrl(path);
+const image = ogImage ?? absUrl('/og-default.jpg');
+const data = graph([localBusiness(), webSite(), ...schema, trail?.length ? crumbs([{ name: 'Home', path: '/' }, ...trail]) : undefined]);
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {isPreview || noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow, max-image-preview:large" />}
+    <meta name="theme-color" content="#09090b" />
+    <link rel="icon" href={href('/favicon.ico')} sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="32x32" href={href('/favicon-32.png')} />
+    <link rel="apple-touch-icon" href={href('/apple-touch-icon.png')} />
+    <link rel="manifest" href={href('/site.webmanifest')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Byrne Auto & Performance, Las Vegas auto repair and performance shop" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="alternate" type="text/plain" href={href('/llms.txt')} title="llms.txt" />
+    <Font cssVariable="--font-display" preload={[{ weight: 800, style: 'normal', subset: 'latin' }]} />
+    <Font cssVariable="--font-body" preload={[{ weight: 400, style: 'normal', subset: 'latin' }]} />
+    <script type="application/ld+json" set:html={JSON.stringify(data)} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:bg-red focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
+    <Header path={path} />
+    <main id="main"><slot /></main>
+    <Footer />
+    <StickyBar smsMessage={smsMessage} />
+    <script>import '../scripts/site.ts';</script>
+  </body>
+</html>

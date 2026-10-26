@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import BrandStrip from '../../components/BrandStrip.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services, groups, type Group } from '../../data/services';
+import { absUrl } from '../../lib/paths';
+const order: Group[] = ['repair', 'performance', 'specialty'];
+const list = { '@type': 'ItemList', itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.name, url: absUrl(`/services/${s.slug}`) })) };
+---
+<Base
+  title="Auto Repair & Performance Services Las Vegas | Byrne Auto"
+  description="All Byrne Auto & Performance services in Las Vegas: repair, maintenance, transmission rebuilds, engine builds, tuning, fleet and UTV work."
+  path="/services"
+  trail={[{ name: 'Services', path: '/services' }]}
+  schema={[list]}
+>
+  <section class="border-b border-line pb-16 pt-32 sm:pt-40">
+    <div class="wrap">
+      <Breadcrumbs trail={[{ name: 'Services' }]} />
+      <h1 class="mt-6 max-w-4xl" data-reveal>Auto repair &amp; performance services</h1>
+      <p class="lead mt-6" data-reveal style="--d:80ms">From routine maintenance to custom engine builds, everything is handled in one Las Vegas shop by people who love this work. Not every part or service is listed, so call if you don't see what you need.</p>
+    </div>
+  </section>
+  {order.map((g) => (
+    <section class="section !pb-4 first-of-type:pt-16">
+      <div class="wrap">
+        <div class="max-w-2xl" data-reveal><p class="eyebrow">{groups[g].label}</p><p class="lead mt-3">{groups[g].blurb}</p></div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.filter((s) => s.group === g).map((s, i) => <ServiceCard s={s} delay={(i % 3) * 80} />)}
+        </div>
+      </div>
+    </section>
+  ))}
+  <div class="mt-16"><BrandStrip /></div>
+  <CtaBand />
+</Base>

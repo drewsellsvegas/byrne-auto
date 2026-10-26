@@ -1,0 +1,48 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import BrandStrip from '../components/BrandStrip.astro';
+import { site } from '../data/site';
+---
+<Base
+  title="About Byrne Auto & Performance | Las Vegas Shop"
+  description="Meet Byrne Auto & Performance, the Las Vegas shop for everyday repairs, transmission rebuilds, engine builds and performance installs."
+  path="/about"
+  trail={[{ name: 'About', path: '/about' }]}
+>
+  <section class="pb-16 pt-32 sm:pt-40">
+    <div class="wrap grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <Breadcrumbs trail={[{ name: 'About' }]} />
+        <h1 class="mt-6" data-reveal>Whatever you need, we have the skills to do it right.</h1>
+        <p class="lead mt-6" data-reveal style="--d:80ms">Byrne Auto &amp; Performance is a Las Vegas repair and performance shop. We handle major and minor repairs, rebuild transmissions, build and install engines and set up performance vehicles with the best parts and tuning solutions available.</p>
+      </div>
+      <div class="relative aspect-[4/3] overflow-hidden rounded-md" data-reveal style="--d:120ms">
+        <Pic name="storefront-sign" alt="Byrne Auto & Performance building and sign at 4354 E Alexander Rd, Las Vegas" priority sizes="(min-width:1024px) 600px, 92vw" widths={[500, 680]} />
+        <div class="absolute bottom-0 left-0 h-1.5 w-1/3 bg-red"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section border-y border-line bg-coal">
+    <div class="wrap grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+      <div class="prose-b" data-reveal>
+        <p class="eyebrow mb-4">Our approach</p>
+        <h2 class="mb-6">Prevent problems before they happen</h2>
+        <p class="text-lg">We use the latest diagnostic technology and top-quality parts. That means we find what's actually wrong, fix it properly and, where we can, catch the next problem before it strands you.</p>
+        <p class="text-lg">The shop works on everything from routine oil changes to custom engine builds. Our favorite work is the kind that makes a vehicle stronger: transmission rebuilds, supercharger installs, tuning and complete power packages.</p>
+        <p class="text-lg">We're an authorized dealer and installer for Dynojet (UTV), FRP, BTR (Brian Tooley Racing), Whipple Superchargers, Rough Country, Texas Speed, JLT and S&amp;B, so you're buying and installing from the source.</p>
+        {/* [PLACEHOLDER: owner name, years in business, and shop story] */}
+      </div>
+      <ul class="grid content-start gap-4" data-reveal style="--d:100ms">
+        {[['Where', site.address.full], ['Hours', `${site.hours.display} · ${site.hours.detail}`], ['Phone', site.phone.display], ['Email', site.email]].map(([k, v]) => (
+          <li class="border border-line bg-panel p-5"><span class="eyebrow">{k}</span><span class="mt-2 block text-lg text-white">{v}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <BrandStrip />
+  <CtaBand title="Come see the shop" />
+</Base>

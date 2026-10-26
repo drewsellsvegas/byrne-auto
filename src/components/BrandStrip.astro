@@ -1,0 +1,13 @@
+---
+import { brands } from '../data/site';
+---
+<section aria-label="Brands we install" class="border-y border-line bg-coal">
+  <div class="wrap flex flex-col items-center gap-5 py-8 lg:flex-row lg:justify-between">
+    <p class="eyebrow shrink-0">Brands we install</p>
+    <ul class="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 lg:justify-end">
+      {brands.map((b) => (
+        <li class="font-display text-2xl font-extrabold uppercase tracking-[0.08em] text-white/55 transition-colors hover:text-white sm:text-3xl" title={b.note}>{b.name}</li>
+      ))}
+    </ul>
+  </div>
+</section>

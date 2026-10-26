@@ -1,0 +1,36 @@
+---
+import Gauge from '@lucide/astro/icons/gauge';
+import Disc from '@lucide/astro/icons/disc';
+import Zap from '@lucide/astro/icons/zap';
+import Activity from '@lucide/astro/icons/activity';
+import ArrowUpDown from '@lucide/astro/icons/arrow-up-down';
+import Wrench from '@lucide/astro/icons/wrench';
+import Droplets from '@lucide/astro/icons/droplets';
+import Snowflake from '@lucide/astro/icons/snowflake';
+import ShieldCheck from '@lucide/astro/icons/shield-check';
+import Cog from '@lucide/astro/icons/cog';
+import Rocket from '@lucide/astro/icons/rocket';
+import Cpu from '@lucide/astro/icons/cpu';
+import Sliders from '@lucide/astro/icons/sliders-horizontal';
+import Wind from '@lucide/astro/icons/wind';
+import Mountain from '@lucide/astro/icons/mountain';
+import Truck from '@lucide/astro/icons/truck';
+import Phone from '@lucide/astro/icons/phone';
+import Message from '@lucide/astro/icons/message-square-text';
+import MapPin from '@lucide/astro/icons/map-pin';
+import Clock from '@lucide/astro/icons/clock';
+import Mail from '@lucide/astro/icons/mail';
+import Menu from '@lucide/astro/icons/menu';
+import X from '@lucide/astro/icons/x';
+import ChevronDown from '@lucide/astro/icons/chevron-down';
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import Check from '@lucide/astro/icons/check';
+import ChevronsUp from '@lucide/astro/icons/chevrons-up';
+import Plus from '@lucide/astro/icons/plus';
+
+const map = { gauge: Gauge, disc: Disc, zap: Zap, activity: Activity, 'arrow-up-down': ArrowUpDown, wrench: Wrench, droplets: Droplets, snowflake: Snowflake, 'shield-check': ShieldCheck, cog: Cog, rocket: Rocket, cpu: Cpu, 'sliders-horizontal': Sliders, wind: Wind, mountain: Mountain, truck: Truck, phone: Phone, message: Message, 'map-pin': MapPin, clock: Clock, mail: Mail, menu: Menu, x: X, 'chevron-down': ChevronDown, 'arrow-right': ArrowRight, check: Check, plus: Plus, 'chevrons-up': ChevronsUp } as const;
+interface Props { name: string; size?: number; class?: string }
+const { name, size = 20, class: cls } = Astro.props;
+const C = map[name as keyof typeof map] ?? Wrench;
+---
+<C size={size} class={cls} aria-hidden="true" stroke-width={2} />

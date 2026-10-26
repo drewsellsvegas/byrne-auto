@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { href, tel } from '../lib/paths';
+import { site } from '../data/site';
+---
+<Base title="Page Not Found | Byrne Auto & Performance" description="That page could not be found." path="/404" noindex>
+  <section class="grid min-h-[80svh] place-items-center pt-24 text-center">
+    <div class="wrap">
+      <p class="font-display text-[8rem] font-extrabold leading-none text-red sm:text-[12rem]">404</p>
+      <h1 class="mt-2 text-4xl sm:text-6xl">Off the track</h1>
+      <p class="lead mx-auto mt-4">That page doesn't exist. Head back to the shop or give us a call.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3"><a href={href('/')} class="btn btn-red">Home</a><a href={tel} class="btn btn-ghost"><Icon name="phone" size={18} /> {site.phone.display}</a></div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,33 @@
+---
+import { Picture } from 'astro:assets';
+import { photo } from '../lib/photos';
+
+interface Props {
+  name: string;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  priority?: boolean;
+  class?: string;
+  fit?: 'cover' | 'contain';
+  position?: string;
+}
+const { name, alt, sizes = '100vw', widths = [480, 800, 1200, 1800], priority = false, class: cls = '', fit = 'cover', position = 'center' } = Astro.props;
+const src = photo(name);
+const usable = widths.filter((w) => w <= src.width);
+if (!usable.length) usable.push(src.width);
+---
+<Picture
+  src={src}
+  alt={alt}
+  widths={usable}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  fallbackFormat="jpg"
+  loading={priority ? 'eager' : 'lazy'}
+  fetchpriority={priority ? 'high' : 'auto'}
+  decoding={priority ? 'sync' : 'async'}
+  class={cls}
+  style={`object-fit:${fit};object-position:${position};width:100%;height:100%`}
+  layout="none"
+/>

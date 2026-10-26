@@ -1,0 +1,95 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { gallery } from '../data/gallery';
+import { photo } from '../lib/photos';
+
+const items = await Promise.all(
+  gallery.map(async (g) => {
+    const src = photo(g.name);
+    const full = await getImage({ src, width: Math.min(1800, src.width), format: 'webp' });
+    return { ...g, full: full.src, ratio: src.width / src.height };
+  }),
+);
+const cats = ['All', ...new Set(gallery.map((g) => g.cat))];
+---
+<Base
+  title="Gallery: Engine Builds, Classics & Trucks | Byrne Auto"
+  description="Photos from Byrne Auto & Performance in Las Vegas: engine builds, supercharger installs, classic restorations, lifted trucks and UTVs."
+  path="/gallery"
+  trail={[{ name: 'Gallery', path: '/gallery' }]}
+>
+  <section class="pb-10 pt-32 sm:pt-40">
+    <div class="wrap">
+      <Breadcrumbs trail={[{ name: 'Gallery' }]} />
+      <h1 class="mt-6" data-reveal>Shop gallery</h1>
+      <p class="lead mt-5" data-reveal style="--d:80ms">Builds, installs and customer vehicles from our Las Vegas shop. Tap any photo to enlarge.</p>
+      <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filter photos" id="filters">
+        {cats.map((c, i) => <button type="button" data-cat={c} aria-pressed={i === 0 ? 'true' : 'false'} class="border border-line px-4 py-2 font-display text-base font-bold uppercase tracking-[0.12em] text-fog transition-colors hover:text-white aria-pressed:border-red aria-pressed:bg-red aria-pressed:text-white">{c}</button>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="wrap">
+      <ul class="columns-2 gap-3 sm:columns-3 lg:columns-4 [&>li]:mb-3" id="grid">
+        {items.map((g, i) => (
+          <li class="break-inside-avoid" data-cat={g.cat}>
+            <button type="button" class="card group block w-full text-left" data-full={g.full} data-alt={g.alt} aria-label={`Enlarge photo: ${g.alt}`}>
+              <div style={`aspect-ratio:${g.ratio.toFixed(3)}`} class="overflow-hidden bg-coal">
+                <Pic name={g.name} alt={g.alt} sizes="(min-width:1024px) 280px, (min-width:640px) 31vw, 48vw" widths={[300, 500, 800]} priority={i < 4} />
+              </div>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <dialog id="lightbox" class="m-auto max-h-[94dvh] max-w-[96vw] bg-transparent p-0 backdrop:bg-black/90 backdrop:backdrop-blur-sm" aria-label="Photo viewer">
+    <figure class="relative">
+      <img id="lb-img" alt="" class="max-h-[84dvh] max-w-[96vw] object-contain" />
+      <figcaption id="lb-cap" class="mt-3 max-w-3xl text-sm text-fog"></figcaption>
+      <button type="button" id="lb-close" class="absolute right-2 top-2 grid h-11 w-11 place-items-center bg-ink/85 text-2xl text-white" aria-label="Close">×</button>
+    </figure>
+    <button type="button" id="lb-prev" class="fixed left-2 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center bg-ink/85 text-3xl text-white" aria-label="Previous photo">‹</button>
+    <button type="button" id="lb-next" class="fixed right-2 top-1/2 grid h-12 w-12 -translate-y-1/2 place-items-center bg-ink/85 text-3xl text-white" aria-label="Next photo">›</button>
+  </dialog>
+
+  <CtaBand title="Want yours in here?" text="Bring us your build, your classic or your daily driver." />
+</Base>
+
+<script>
+  const dlg = document.getElementById('lightbox') as HTMLDialogElement;
+  const img = document.getElementById('lb-img') as HTMLImageElement;
+  const cap = document.getElementById('lb-cap')!;
+  const btns = () => [...document.querySelectorAll<HTMLButtonElement>('#grid li:not([hidden]) button[data-full]')];
+  let idx = 0;
+  const show = (i: number) => {
+    const list = btns();
+    idx = (i + list.length) % list.length;
+    img.src = list[idx].dataset.full!;
+    img.alt = list[idx].dataset.alt!;
+    cap.textContent = list[idx].dataset.alt!;
+  };
+  document.getElementById('grid')!.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-full]');
+    if (!b) return;
+    show(btns().indexOf(b));
+    dlg.showModal();
+  });
+  document.getElementById('lb-close')!.addEventListener('click', () => dlg.close());
+  document.getElementById('lb-prev')!.addEventListener('click', () => show(idx - 1));
+  document.getElementById('lb-next')!.addEventListener('click', () => show(idx + 1));
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', (e) => { if (e.key === 'ArrowLeft') show(idx - 1); if (e.key === 'ArrowRight') show(idx + 1); });
+  document.getElementById('filters')!.addEventListener('click', (e) => {
+    const b = (e.target as HTMLElement).closest<HTMLButtonElement>('button[data-cat]');
+    if (!b) return;
+    document.querySelectorAll('#filters button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    document.querySelectorAll<HTMLElement>('#grid li').forEach((li) => { li.hidden = b.dataset.cat !== 'All' && li.dataset.cat !== b.dataset.cat; });
+  });
+</script>

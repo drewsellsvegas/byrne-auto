@@ -1,0 +1,115 @@
+---
+import Base from '../../layouts/Base.astro';
+import Pic from '../../components/Pic.astro';
+import Icon from '../../components/Icon.astro';
+import Faq from '../../components/Faq.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import BrandStrip from '../../components/BrandStrip.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../data/site';
+import { services, serviceBySlug, type Service } from '../../data/services';
+import { href, tel, sms } from '../../lib/paths';
+import { serviceNode, faqNode } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: Service };
+const related = s.related.map(serviceBySlug);
+const smsMsg = `Hi Byrne Auto, I'm interested in ${s.name}. My vehicle is (year / make / model): `;
+const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || s.slug === 'lift-kits-off-road';
+---
+<Base
+  title={s.title}
+  description={s.meta}
+  path={`/services/${s.slug}`}
+  trail={[{ name: 'Services', path: '/services' }, { name: s.name, path: `/services/${s.slug}` }]}
+  schema={[serviceNode(s), faqNode(s.faq)]}
+  smsMessage={smsMsg}
+>
+  <!-- HERO -->
+  <section class="relative isolate overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-44">
+    <div class="absolute inset-0 -z-20 hero-zoom"><Pic name={s.photo} alt={s.photoAlt} priority sizes="100vw" widths={[800, 1280, 1800, 2200]} /></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/85 to-ink/30"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-transparent to-ink/50"></div>
+    <div class="wrap">
+      <Breadcrumbs trail={[{ name: 'Services', path: '/services' }, { name: s.name }]} />
+      <p class="eyebrow mt-8">{s.name}</p>
+      <h1 class="mt-4 max-w-4xl">{s.h1}</h1>
+      <p class="lead mt-6">{s.lead}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={tel} class="btn btn-red" data-call><Icon name="phone" size={20} /> Call {site.phone.display}</a>
+        <a href={sms(smsMsg)} class="btn btn-ghost"><Icon name="message" size={20} /> Text us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BODY -->
+  <section class="section">
+    <div class="wrap grid gap-12 lg:grid-cols-[1.7fr_1fr] lg:gap-16">
+      <div>
+        <div class="prose-b" data-reveal>
+          <p class="eyebrow mb-4">The service</p>
+          <h2 class="mb-6">What to expect</h2>
+          {s.body.map((p) => <p class="text-lg">{p}</p>)}
+        </div>
+
+        <div class="mt-14" data-reveal>
+          <h2 class="text-3xl sm:text-4xl">What's included</h2>
+          <ul class="tick mt-6 grid gap-3 sm:grid-cols-2">
+            {s.includes.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+
+        <div class="mt-14 border border-line bg-coal p-7" data-reveal>
+          <h2 class="text-3xl">{s.signsTitle}</h2>
+          <ul class="tick mt-5 grid gap-2.5">
+            {s.signs.map((i) => <li>{i}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal style="--d:100ms">
+        <div class="border border-line bg-panel p-7">
+          <p class="eyebrow">Book {s.name}</p>
+          <p class="mt-4 font-display text-4xl font-extrabold uppercase leading-none">{site.phone.display}</p>
+          <p class="mt-3 text-sm text-fog">Tell us your year, make and model and what you need. We'll tell you what it takes.</p>
+          <div class="mt-6 grid gap-3">
+            <a href={tel} class="btn btn-red w-full" data-call><Icon name="phone" size={20} /> Call now</a>
+            <a href={sms(smsMsg)} class="btn btn-ghost w-full"><Icon name="message" size={20} /> Send a text</a>
+          </div>
+          <ul class="mt-6 space-y-3 border-t border-line pt-5 text-sm">
+            <li class="flex gap-3"><Icon name="clock" size={18} class="mt-0.5 shrink-0 text-red-hot" /><span>{site.hours.display}<br /><span class="text-fog">{site.hours.detail}</span></span></li>
+            <li class="flex gap-3"><Icon name="map-pin" size={18} class="mt-0.5 shrink-0 text-red-hot" /><span>{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.zip}</span></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {showBrands && <BrandStrip />}
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap grid gap-12 lg:grid-cols-[1fr_1.6fr]">
+      <div data-reveal><p class="eyebrow">FAQ</p><h2 class="mt-4">{s.name} questions</h2></div>
+      <div data-reveal style="--d:100ms"><Faq items={s.faq} /></div>
+    </div>
+  </section>
+
+  <!-- RELATED -->
+  <section class="section border-t border-line bg-coal !py-16">
+    <div class="wrap">
+      <div class="flex items-end justify-between gap-4" data-reveal>
+        <h2>Related services</h2>
+        <a href={href('/services')} class="hidden font-display text-lg font-bold uppercase tracking-[0.12em] text-red-hot sm:inline">All services →</a>
+      </div>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {related.map((r, i) => <ServiceCard s={r} delay={i * 80} />)}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title={`Need ${s.name.toLowerCase()}?`} smsMessage={smsMsg} />
+</Base>
