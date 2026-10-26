@@ -5,7 +5,7 @@ import Pic from '../components/Pic.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../data/site';
 import { tel } from '../lib/paths';
-const embed = `https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`;
+const embed = site.mapEmbed;
 ---
 <Base
   title="Contact Byrne Auto & Performance | Las Vegas, NV 89115"
@@ -50,7 +50,7 @@ const embed = `https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery
     f.title = 'Map to Byrne Auto & Performance, 4354 E Alexander Rd, Las Vegas';
     f.className = 'absolute inset-0 h-full w-full';
     f.style.cssText = 'border:0;filter:invert(.92) hue-rotate(180deg) saturate(.6)';
-    f.referrerPolicy = 'no-referrer-when-downgrade';
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
     box.replaceChildren(f);
   });
 </script>

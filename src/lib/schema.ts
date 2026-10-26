@@ -24,6 +24,7 @@ export const localBusiness = (): Node => ({
     postalCode: site.address.zip,
     addressCountry: 'US',
   },
+  geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
   hasMap: `https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}`,
   openingHoursSpecification: site.hours.schema.map((h) => ({
     '@type': 'OpeningHoursSpecification',

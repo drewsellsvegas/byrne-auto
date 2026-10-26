@@ -13,6 +13,8 @@ export const site = {
     full: '4354 E Alexander Rd, Las Vegas, NV 89115',
   },
   mapsQuery: '4354 E Alexander Rd, Las Vegas, NV 89115',
+  mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3218.2290354322413!2d-115.08131202266692!3d36.233929872414116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c8c34a2db3e9b9%3A0xdbf8e1bfddd3717b!2sByrne%20Auto%20%26%20Performance!5e0!3m2!1sen!2sus!4v1793049846698!5m2!1sen!2sus',
+  geo: { lat: 36.233929872414116, lng: -115.08131202266692 },
   hours: {
     display: 'Mon–Fri 8am–5pm',
     detail: 'Saturday & Sunday closed',
