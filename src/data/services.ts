@@ -403,7 +403,7 @@ export const services: Service[] = [
     lead: 'We know performance modifications and use only the best parts and best tuning solutions. Whether you want a cold air intake or a full power package, the goal is real, reliable power.',
     body: [
       'Good modifying is about matching parts to each other and to the vehicle. An intake without a tune, or a cam without supporting parts, leaves power on the table or causes problems. We plan the whole combination.',
-      'We are an authorized dealer and installer for brands including BTR (Brian Tooley Racing), FRP, Whipple, Texas Speed, JLT and S&B, so parts come from the source and are installed by people who work with them every day.',
+      'We are an authorized dealer for brands including BTR (Brian Tooley Racing), FRP, Whipple, Texas Speed, JLT and S&B, so parts come from the source and are fitted by people who work with them every day.',
     ],
     includes: [
       'Cold air intakes and filters (JLT, S&B)',

@@ -30,7 +30,7 @@ const faq = [
   { q: 'Where is Byrne Auto & Performance located?', a: `We are at ${site.address.full}, in Las Vegas near North Las Vegas. Call ${site.phone.display} for directions or to book.` },
   { q: 'What are your hours?', a: `${site.hours.display}. We are closed Saturday and Sunday.` },
   { q: 'Do you work on regular cars as well as performance builds?', a: 'Yes. We handle major and minor repairs on everyday vehicles, plus performance installs, tuning and engine builds.' },
-  { q: 'Which performance brands do you install?', a: 'We are an authorized dealer and installer for Dynojet (UTV), FRP, BTR (Brian Tooley Racing), Whipple Superchargers, Rough Country, Texas Speed, JLT intakes and S&B filters.' },
+  { q: 'Which brands are you an authorized dealer for?', a: 'We are an authorized dealer for Dynojet (UTV), FRP, BTR (Brian Tooley Racing), Whipple Superchargers, Rough Country, Texas Speed, JLT intakes and S&B filters.' },
   { q: 'Do you offer fleet maintenance for businesses?', a: 'Yes. We service work trucks, vans and company vehicles. See our fleet maintenance page or call us to talk about your vehicles.' },
   { q: 'How do I get a quote?', a: `Call ${site.phone.display} with your vehicle's year, make and model and what you need. Not every part or service is listed on this site, so ask.` },
 ];
@@ -142,7 +142,7 @@ const faq = [
         {[
           ['01', 'Latest diagnostics', 'Current diagnostic technology finds the real cause, so you pay to fix the right thing.'],
           ['02', 'Top-quality parts', 'We use only the best parts and tuning solutions from brands we trust.'],
-          ['03', 'Authorized installs', 'Dealer and installer for Dynojet, FRP, BTR, Whipple, Rough Country, Texas Speed, JLT and S&B.'],
+          ['03', 'Authorized dealer', 'Parts and tuning straight from the brands that build them, backed by people who install them every day.'],
           ['04', 'Major to minor', 'Oil changes to full engine builds, one shop with the skills to do it right.'],
         ].map(([n, t, d], i) => (
           <div class="bg-coal p-7" data-reveal style={`--d:${i * 80}ms`}>
