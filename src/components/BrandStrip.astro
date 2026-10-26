@@ -6,18 +6,19 @@ import btr from '../assets/brands/btr.png';
 import whipple from '../assets/brands/whipple.png';
 import roughCountry from '../assets/brands/rough-country.png';
 import texas from '../assets/brands/texas-speed.png';
+import jlt from '../assets/brands/jlt.png';
+import sb from '../assets/brands/sb.png';
 
-// Logos on a light tile or a black tile, matching the background each logo was supplied with.
-// JLT and S&B have no logo file yet: typographic tiles until the client sends them.
+// Logos sit on a light or black tile, whichever suits the file supplied.
 const brands = [
   { name: 'Dynojet', src: dynojet, tile: 'light', h: 34 },
   { name: 'FRP Tuning', src: frp, tile: 'dark', h: 24 },
   { name: 'BTR Brian Tooley Racing', src: btr, tile: 'light', h: 48 },
-  { name: 'Whipple Superchargers', src: whipple, tile: 'dark', h: 34 },
-  { name: 'Rough Country', src: roughCountry, tile: 'dark', h: 54 },
-  { name: 'Texas Speed & Performance', src: texas, tile: 'light', h: 40 },
-  { name: 'JLT', text: 'JLT' },
-  { name: 'S&B Filters', text: 'S&B' },
+  { name: 'Whipple Superchargers', src: whipple, tile: 'dark', h: 38 },
+  { name: 'Rough Country', src: roughCountry, tile: 'light', h: 28 },
+  { name: 'Texas Speed & Performance', src: texas, tile: 'dark', h: 54 },
+  { name: 'JLT Performance', src: jlt, tile: 'light', h: 46 },
+  { name: 'S&B Filters', src: sb, tile: 'dark', h: 56 },
 ];
 ---
 <section aria-label="Authorized dealer brands" class="border-y border-line bg-coal py-10">
@@ -30,10 +31,8 @@ const brands = [
       {[0, 1].map((n) => (
         <ul class="flex shrink-0 gap-4 pr-4" aria-hidden={n === 1 ? 'true' : undefined}>
           {brands.map((b) => (
-            <li class:list={['grid h-24 w-52 shrink-0 place-items-center rounded-md border', b.tile === 'light' ? 'border-white/20 bg-[#f4f4f5]' : 'border-line bg-black']} title={b.name}>
-              {b.src
-                ? <Image src={b.src} alt={n === 0 ? `${b.name} logo, authorized dealer at Byrne Auto & Performance in Las Vegas` : ''} height={b.h} width={Math.round((b.h * b.src.width) / b.src.height)} style={`height:${b.h}px;width:auto;max-width:170px`} loading="lazy" />
-                : <span class="font-display text-4xl font-extrabold uppercase tracking-[0.08em] text-white/80">{b.text}</span>}
+            <li class:list={['grid h-24 w-56 shrink-0 place-items-center rounded-md border', b.tile === 'light' ? 'border-white/20 bg-[#f4f4f5]' : 'border-line bg-black']} title={b.name}>
+              <Image src={b.src} alt={n === 0 ? `${b.name} logo, authorized dealer at Byrne Auto & Performance in Las Vegas` : ''} height={b.h} width={Math.round((b.h * b.src.width) / b.src.height)} style={`max-height:${b.h}px;max-width:200px;width:auto;height:auto`} loading="lazy" />
             </li>
           ))}
         </ul>

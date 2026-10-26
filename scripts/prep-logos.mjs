@@ -1,7 +1,6 @@
 // Cleans the supplied partner logos into uniform PNGs for the rotating "Authorized dealer" strip.
 import sharp from 'sharp';
 const out = 'src/assets/brands/';
-const ref = 'refs/current-site-photos/';
 const sup = 'refs/logos/';
 
 // Dynojet: keep only the red and black lettering, drop the sand-colored screenshot background.
@@ -28,7 +27,10 @@ const sup = 'refs/logos/';
   const cut = await sharp(sup + '4.png').flatten({ background: '#000' }).extract({ left: 30, top: 12, width: 190, height: 34 }).toBuffer();
   await sharp(cut).trim({ background: '#000', threshold: 60 }).png().toFile(out + 'frp.png');
 }
-await sharp(ref + 'p33.png').flatten({ background: '#000' }).png().toFile(out + 'whipple.png');
-await sharp(ref + 'p34.png').flatten({ background: '#000' }).trim({ background: '#000', threshold: 10 }).png().toFile(out + 'rough-country.png');
-await sharp(ref + 'p36.jpg').trim({ background: '#fff', threshold: 25 }).png().toFile(out + 'texas-speed.png');
+// Client-supplied logo files (transparent or white-background originals)
+await sharp(sup + 'whipple.png').trim().png().toFile(out + 'whipple.png');
+await sharp(sup + 'texas.webp').trim().png().toFile(out + 'texas-speed.png');
+await sharp(sup + 'jlt.webp').trim().png().toFile(out + 'jlt.png');
+await sharp(sup + 'sb.avif').trim().png().toFile(out + 'sb.png');
+await sharp(sup + 'rough-country.jpg').trim({ background: '#fff', threshold: 25 }).png().toFile(out + 'rough-country.png');
 console.log('logos ready');
