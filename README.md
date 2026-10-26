@@ -39,7 +39,7 @@ Pitch/preview site for Byrne Auto & Performance, 4354 E Alexander Rd, Las Vegas,
 | Certifications (ASE etc.) | Not shown | Any certifications to display |
 | Dyno | Photos show cars on rollers; copy makes no dyno claim | Confirm an in-house dyno, then add dyno-tuning copy |
 | Vector logo | Header uses a raster crop of the supplied logo | SVG/AI file if one exists |
-| Brand logo quality | All eight logos are in the strip. Dynojet, FRP and BTR were cleaned from screenshots (FRP is low-res) | Brand-approved Dynojet, FRP and BTR files would sharpen them |
+| Brand logo quality | All eight logos are in the strip. FRP is a low-res screenshot crop; BTR is cropped from the old site's carbon-fiber photo | A clean FRP logo (transparent PNG/SVG) and a flat BTR logo |
 | Google Business Profile URL, other socials | Schema `sameAs` has Facebook only | GBP link, Instagram, etc. |
 | Analytics | None installed | Decide (Cloudflare Web Analytics is the lightweight option) |
 
