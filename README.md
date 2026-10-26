@@ -19,7 +19,7 @@ Pitch/preview site for Byrne Auto & Performance, 4354 E Alexander Rd, Las Vegas,
 
 - `src/data/site.ts`: business facts, hours, brands. `src/data/services.ts`: all 17 services (title, meta, H1, copy, FAQs, photo). `src/data/gallery.ts`: gallery photos with alt text.
 - Adding a service to `services.ts` automatically creates its page, nav/footer links, sitemap entry, Service + FAQ JSON-LD and llms.txt entries.
-- Pages: Home, Services hub, 17 service pages (the 16 requested + **Fleet Maintenance**), Gallery (filter + lightbox), About, Contact (click-to-call/text, hours, click-to-load map), 404. No service-area pages.
+- Pages: Home, Services hub, 17 service pages (the 16 requested + **Fleet Maintenance**), Gallery (filter + lightbox), About, Contact (click-to-call, hours, click-to-load map), 404. No service-area pages.
 - SEO: AutoRepair/LocalBusiness + WebSite + Service + FAQPage + BreadcrumbList JSON-LD, unique title/meta per page, `sitemap-index.xml`, `robots.txt`, `llms.txt`, `llms-full.txt`.
 
 ## Deploy

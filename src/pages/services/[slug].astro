@@ -9,7 +9,7 @@ import BrandStrip from '../../components/BrandStrip.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import { site } from '../../data/site';
 import { services, serviceBySlug, type Service } from '../../data/services';
-import { href, tel, sms } from '../../lib/paths';
+import { href, tel } from '../../lib/paths';
 import { serviceNode, faqNode } from '../../lib/schema';
 
 export function getStaticPaths() {
@@ -17,7 +17,6 @@ export function getStaticPaths() {
 }
 const { s } = Astro.props as { s: Service };
 const related = s.related.map(serviceBySlug);
-const smsMsg = `Hi Byrne Auto, I'm interested in ${s.name}. My vehicle is (year / make / model): `;
 const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || s.slug === 'lift-kits-off-road';
 ---
 <Base
@@ -26,7 +25,6 @@ const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || 
   path={`/services/${s.slug}`}
   trail={[{ name: 'Services', path: '/services' }, { name: s.name, path: `/services/${s.slug}` }]}
   schema={[serviceNode(s), faqNode(s.faq)]}
-  smsMessage={smsMsg}
 >
   <!-- HERO -->
   <section class="relative isolate overflow-hidden pb-16 pt-32 sm:pb-24 sm:pt-44">
@@ -40,7 +38,6 @@ const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || 
       <p class="lead mt-6">{s.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a href={tel} class="btn btn-red" data-call><Icon name="phone" size={20} /> Call {site.phone.display}</a>
-        <a href={sms(smsMsg)} class="btn btn-ghost"><Icon name="message" size={20} /> Text us</a>
       </div>
     </div>
   </section>
@@ -77,7 +74,6 @@ const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || 
           <p class="mt-3 text-sm text-fog">Tell us your year, make and model and what you need. We'll tell you what it takes.</p>
           <div class="mt-6 grid gap-3">
             <a href={tel} class="btn btn-red w-full" data-call><Icon name="phone" size={20} /> Call now</a>
-            <a href={sms(smsMsg)} class="btn btn-ghost w-full"><Icon name="message" size={20} /> Send a text</a>
           </div>
           <ul class="mt-6 space-y-3 border-t border-line pt-5 text-sm">
             <li class="flex gap-3"><Icon name="clock" size={18} class="mt-0.5 shrink-0 text-red-hot" /><span>{site.hours.display}<br /><span class="text-fog">{site.hours.detail}</span></span></li>
@@ -111,5 +107,5 @@ const showBrands = s.group === 'performance' || s.slug === 'utv-performance' || 
     </div>
   </section>
 
-  <CtaBand title={`Need ${s.name.toLowerCase()}?`} smsMessage={smsMsg} />
+  <CtaBand title={`Need ${s.name.toLowerCase()}?`} />
 </Base>

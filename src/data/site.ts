@@ -19,7 +19,6 @@ export const site = {
     schema: [{ days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '08:00', closes: '17:00' }],
   },
   facebook: 'https://www.facebook.com/BYRNE-Auto-Performance-101600031980798',
-  smsMessage: "Hi Byrne Auto, I'd like to ask about my vehicle. It's a (year / make / model): ",
   areas: ['Las Vegas', 'North Las Vegas'],
   // Not known yet. Each stays a visible placeholder in the README until the owner answers.
   placeholders: {

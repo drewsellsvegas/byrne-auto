@@ -4,12 +4,12 @@ import Icon from '../components/Icon.astro';
 import Pic from '../components/Pic.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../data/site';
-import { tel, sms } from '../lib/paths';
+import { tel } from '../lib/paths';
 const embed = `https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`;
 ---
 <Base
   title="Contact Byrne Auto & Performance | Las Vegas, NV 89115"
-  description="Call (702) 742-0873 or visit 4354 E Alexander Rd, Las Vegas, NV 89115. Open Mon–Fri 8am–5pm. Click to call or text."
+  description="Call (702) 742-0873 or visit 4354 E Alexander Rd, Las Vegas, NV 89115. Open Mon–Fri 8am–5pm. Click to call."
   path="/contact"
   trail={[{ name: 'Contact', path: '/contact' }]}
 >
@@ -17,14 +17,13 @@ const embed = `https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery
     <div class="wrap">
       <Breadcrumbs trail={[{ name: 'Contact' }]} />
       <h1 class="mt-6" data-reveal>Contact the shop</h1>
-      <p class="lead mt-5" data-reveal style="--d:80ms">Call or text with your vehicle's year, make and model and what you need. We'll get back to you during business hours.</p>
+      <p class="lead mt-5" data-reveal style="--d:80ms">Call with your vehicle's year, make and model and what you need. We're open Monday through Friday, 8am to 5pm.</p>
     </div>
   </section>
   <section class="pb-24">
     <div class="wrap grid gap-10 lg:grid-cols-[1fr_1.3fr]">
       <div class="grid content-start gap-4" data-reveal>
         <a href={tel} class="btn btn-red w-full !text-2xl" data-call><Icon name="phone" size={24} /> Call {site.phone.display}</a>
-        <a href={sms()} class="btn btn-ghost w-full !text-2xl"><Icon name="message" size={24} /> Text us</a>
         <address class="mt-4 space-y-6 not-italic">
           <div class="flex gap-4"><Icon name="map-pin" size={24} class="mt-1 shrink-0 text-red-hot" /><div><p class="eyebrow !before:hidden">Address</p><p class="mt-1 text-lg">{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.zip}</p><a class="mt-1 inline-block text-red-hot hover:text-white" href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.mapsQuery)}`}>Get directions →</a></div></div>
           <div class="flex gap-4"><Icon name="clock" size={24} class="mt-1 shrink-0 text-red-hot" /><div><p class="eyebrow">Hours</p><table class="mt-1 text-lg"><tbody><tr><td class="pr-6">Monday – Friday</td><td>8am – 5pm</td></tr><tr class="text-fog"><td class="pr-6">Saturday</td><td>Closed</td></tr><tr class="text-fog"><td class="pr-6">Sunday</td><td>Closed</td></tr></tbody></table></div></div>

@@ -15,10 +15,9 @@ interface Props {
   ogImage?: string;
   schema?: (Node | undefined)[];
   trail?: { name: string; path: string }[];
-  smsMessage?: string;
   noindex?: boolean;
 }
-const { title, description, path, ogImage, schema = [], trail, smsMessage, noindex } = Astro.props;
+const { title, description, path, ogImage, schema = [], trail, noindex } = Astro.props;
 const canonical = absUrl(path);
 const image = ogImage ?? absUrl('/og-default.jpg');
 const data = graph([localBusiness(), webSite(), ...schema, trail?.length ? crumbs([{ name: 'Home', path: '/' }, ...trail]) : undefined]);
@@ -58,7 +57,7 @@ const data = graph([localBusiness(), webSite(), ...schema, trail?.length ? crumb
     <Header path={path} />
     <main id="main"><slot /></main>
     <Footer />
-    <StickyBar smsMessage={smsMessage} />
+    <StickyBar />
     <script>import '../scripts/site.ts';</script>
   </body>
 </html>

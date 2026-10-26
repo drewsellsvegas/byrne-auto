@@ -1,10 +1,8 @@
 ---
 import Icon from './Icon.astro';
-import { tel, sms } from '../lib/paths';
-interface Props { smsMessage?: string }
-const { smsMessage } = Astro.props;
+import { site } from '../data/site';
+import { tel } from '../lib/paths';
 ---
-<div class="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 gap-px border-t border-line bg-line pb-[env(safe-area-inset-bottom)] lg:hidden">
-  <a href={tel} data-call class="flex h-[4.25rem] items-center justify-center gap-2 bg-red font-display text-xl font-extrabold uppercase tracking-[0.1em] text-white no-underline"><Icon name="phone" size={22} /> Call</a>
-  <a href={sms(smsMessage)} class="flex h-[4.25rem] items-center justify-center gap-2 bg-coal font-display text-xl font-extrabold uppercase tracking-[0.1em] text-white no-underline"><Icon name="message" size={22} /> Text</a>
+<div class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-red pb-[env(safe-area-inset-bottom)] lg:hidden">
+  <a href={tel} data-call class="flex h-[4.25rem] items-center justify-center gap-3 font-display text-2xl font-extrabold uppercase tracking-[0.1em] text-white no-underline"><Icon name="phone" size={24} /> Call {site.phone.display}</a>
 </div>

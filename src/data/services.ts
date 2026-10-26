@@ -20,7 +20,6 @@ export interface Service {
   faq: { q: string; a: string }[];
   related: string[];
   keywords: string[];
-  smsVehicle?: string;
 }
 
 export const groups: Record<Group, { label: string; blurb: string }> = {

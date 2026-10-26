@@ -8,7 +8,7 @@ import BrandStrip from '../components/BrandStrip.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
 import { services, serviceBySlug } from '../data/services';
-import { href, tel, sms } from '../lib/paths';
+import { href, tel } from '../lib/paths';
 import { faqNode } from '../lib/schema';
 
 const featured = ['transmission-rebuilding', 'whipple-supercharger-installs', 'custom-engine-builds', 'performance-mods-tuning'].map(serviceBySlug);
@@ -32,7 +32,7 @@ const faq = [
   { q: 'Do you work on regular cars as well as performance builds?', a: 'Yes. We handle major and minor repairs on everyday vehicles, plus performance installs, tuning and engine builds.' },
   { q: 'Which performance brands do you install?', a: 'We are an authorized dealer and installer for Dynojet (UTV), FRP, BTR (Brian Tooley Racing), Whipple Superchargers, Rough Country, Texas Speed, JLT intakes and S&B filters.' },
   { q: 'Do you offer fleet maintenance for businesses?', a: 'Yes. We service work trucks, vans and company vehicles. See our fleet maintenance page or call us to talk about your vehicles.' },
-  { q: 'How do I get a quote?', a: `Call or text ${site.phone.display} with your vehicle's year, make and model and what you need. Not every part or service is listed on this site, so ask.` },
+  { q: 'How do I get a quote?', a: `Call ${site.phone.display} with your vehicle's year, make and model and what you need. Not every part or service is listed on this site, so ask.` },
 ];
 ---
 <Base
@@ -42,17 +42,18 @@ const faq = [
   schema={[faqNode(faq)]}
 >
   <!-- HERO -->
-  <section class="relative isolate flex min-h-[100svh] items-end overflow-hidden pb-16 pt-32 sm:items-center sm:pb-20">
-    <div class="absolute inset-0 -z-20 hero-zoom"><Pic name="corvette-lift" alt="Orange Chevrolet Corvette raised on a lift at Byrne Auto & Performance in Las Vegas, NV" priority sizes="100vw" widths={[800, 1280, 1800, 2200]} position="88% center" /></div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-ink via-ink/75 to-ink/10"></div>
-    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-ink via-transparent to-ink/60"></div>
-    <div class="wrap">
+  <section class="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink sm:flex-row sm:items-center">
+    <div class="relative mt-[4.25rem] aspect-[2000/1042] w-full shrink-0 sm:absolute sm:inset-x-0 sm:top-0 sm:-z-20 sm:mt-0">
+      <div class="absolute inset-0 hero-zoom"><Pic name="charger-orange" alt="Orange Dodge Charger Hellcat strapped down on the dyno at Byrne Auto & Performance in Las Vegas, NV" priority sizes="100vw" widths={[800, 1280, 1800, 2200]} position="center" /></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-transparent"></div>
+    </div>
+    <div class="absolute inset-0 -z-10 hidden bg-gradient-to-r from-ink/92 via-ink/45 to-transparent sm:block"></div>
+        <div class="wrap relative pb-14 pt-4 sm:py-32">
       <p class="eyebrow" data-reveal>Las Vegas · North Las Vegas · 89115</p>
-      <h1 class="mt-5 max-w-4xl" data-reveal style="--d:80ms">Built for power.<br /><span class="text-red">Trusted for repairs.</span></h1>
-      <p class="lead mt-6" data-reveal style="--d:160ms">Byrne Auto &amp; Performance is the Las Vegas shop for transmission rebuilds, engine builds, supercharger installs and tuning, plus everyday maintenance and repair done right the first time.</p>
+      <h1 class="mt-5 max-w-4xl" data-reveal style="--d:80ms">Built for power.<br /><span class="text-red-hot">Trusted for repairs.</span></h1>
+      <p class="lead mt-6 sm:max-w-xl" data-reveal style="--d:160ms">Byrne Auto &amp; Performance is the Las Vegas shop for transmission rebuilds, engine builds, supercharger installs and tuning, plus everyday maintenance and repair done right the first time.</p>
       <div class="mt-9 flex flex-wrap gap-3" data-reveal style="--d:240ms">
         <a href={tel} class="btn btn-red" data-call><Icon name="phone" size={20} /> Call {site.phone.display}</a>
-        <a href={sms()} class="btn btn-ghost"><Icon name="message" size={20} /> Text us</a>
       </div>
       <ul class="mt-12 grid max-w-3xl gap-x-8 gap-y-4 border-t border-white/15 pt-6 text-sm sm:grid-cols-3" data-reveal style="--d:320ms">
         <li><span class="block font-display text-2xl font-extrabold uppercase text-white">Authorized</span><span class="text-fog">Dynojet, Whipple, BTR &amp; more</span></li>
@@ -196,8 +197,8 @@ const faq = [
           <a href={href('/contact')} class="btn btn-ghost">Contact</a>
         </div>
       </div>
-      <div class="relative aspect-[4/3] overflow-hidden rounded-md" data-reveal style="--d:100ms">
-        <Pic name="storefront-sign" alt="Byrne Auto & Performance storefront sign at 4354 E Alexander Rd, Las Vegas, NV 89115" sizes="(min-width:1024px) 600px, 92vw" widths={[500, 680]} />
+      <div class="relative aspect-[4/3] overflow-hidden rounded-md border border-line bg-coal" data-reveal style="--d:100ms">
+        <iframe title="Map to Byrne Auto & Performance, 4354 E Alexander Rd, Las Vegas, NV 89115" src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapsQuery)}&output=embed`} class="absolute inset-0 h-full w-full" loading="lazy" referrerpolicy="no-referrer-when-downgrade" style="border:0;filter:invert(.92) hue-rotate(180deg) saturate(.6)"></iframe>
       </div>
     </div>
   </section>

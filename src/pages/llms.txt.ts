@@ -22,7 +22,7 @@ export const GET: APIRoute = () => {
     `- [All services](${absUrl('/services')}): Every service we offer`,
     `- [Gallery](${absUrl('/gallery')}): Photos of builds, installs and customer vehicles`,
     `- [About](${absUrl('/about')}): About the shop`,
-    `- [Contact](${absUrl('/contact')}): Address, map, hours, call and text`,
+    `- [Contact](${absUrl('/contact')}): Address, map, hours and click-to-call`,
     '',
     ...order.flatMap((g) => [`## ${groups[g].label}`, ...services.filter((s) => s.group === g).map((s) => `- [${s.name}](${absUrl(`/services/${s.slug}`)}): ${s.summary}`), '']),
     '## Optional',
